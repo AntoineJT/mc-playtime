@@ -1,0 +1,10 @@
+name: Playtime
+main: com.antoinejt.survivalplugin.PlaytimePlugin
+author: AntoineJT
+version: 0.0.0
+api-version: 1.16
+website: https://github.com/AntoineJT/mc-playtime
+
+# TODO commands
+
+# TODO permissions
