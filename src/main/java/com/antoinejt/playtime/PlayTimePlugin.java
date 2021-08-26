@@ -1,10 +1,12 @@
 package com.antoinejt.playtime;
 
+import com.antoinejt.playtime.events.PlayerConnectionListener;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PlayTimePlugin extends JavaPlugin {
     private static FileConfiguration cfgFile;
+    private static PlayerJoinData playerJoinData;
 
     @Override
     @SuppressWarnings("java:S2696")
@@ -15,11 +17,18 @@ public class PlayTimePlugin extends JavaPlugin {
     //   restarting it.
     public void onEnable() {
         cfgFile = getConfig();
+        playerJoinData = new PlayerJoinData();
+
+        this.getServer().getPluginManager().registerEvents(new PlayerConnectionListener(), this);
 
         this.saveDefaultConfig();
     }
 
     public FileConfiguration getCfgFile() {
         return cfgFile;
+    }
+
+    public static PlayerJoinData getPlayerJoinData() {
+        return playerJoinData;
     }
 }
