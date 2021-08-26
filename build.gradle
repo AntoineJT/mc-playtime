@@ -1,0 +1,23 @@
+plugins {
+    id 'java-library'
+}
+
+group 'com.antoinejt'
+version '0.0.0'
+
+repositories {
+    mavenCentral()
+    jcenter()
+        maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+
+    // testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    // testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    // useJUnitPlatform()
+}
