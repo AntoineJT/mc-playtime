@@ -17,12 +17,6 @@ public class PlayerJoinData {
         data.put(uuid, new Date());
     }
 
-    /*
-    public boolean setJoinTime(UUID uuid, Date joinTime) {
-        return Objects.equals(data.put(uuid, joinTime), joinTime);
-    }
-     */
-
     public Date pop(UUID uuid) {
         return data.remove(uuid);
     }

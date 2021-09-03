@@ -1,7 +1,7 @@
 package com.antoinejt.playtime.events;
 
+import com.antoinejt.playtime.PlayTimeData;
 import com.antoinejt.playtime.PlayTimePlugin;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerEvent;
@@ -9,12 +9,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.io.IOException;
+import java.time.Duration;
 import java.util.Date;
+import java.util.logging.Level;
 
 public class PlayerConnectionListener implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
-        // PlayTimePlugin.getPlayerJoinData().setJoinTime(event.getPlayer().getUniqueId(), new Date());
         PlayTimePlugin.getPlayerJoinData().registerPlayerJoin(event.getPlayer().getUniqueId());
     }
 
@@ -31,8 +33,16 @@ public class PlayerConnectionListener implements Listener {
     private void handleDisconnect(PlayerEvent event) {
         Date disconnectDate = new Date();
         Date joinDate = PlayTimePlugin.getPlayerJoinData().pop(event.getPlayer().getUniqueId());
-        long sessionTime = disconnectDate.getTime() - joinDate.getTime();
-        // TODO Additionner avec temps déjà enregistré
-        // TODO
+        Duration sessionDuration = Duration.between(joinDate.toInstant(), disconnectDate.toInstant());
+
+        PlayTimeData data = PlayTimePlugin.getPlayTimeData();
+        data.addPlayTime(event.getPlayer(), sessionDuration);
+
+        try {
+            data.persistOnDisk();
+        } catch (IOException e) {
+            PlayTimePlugin.getConsoleLogger().log(Level.WARNING,
+                    "Can't persist playtime on disk! Error: " + e.getMessage());
+        }
     }
 }

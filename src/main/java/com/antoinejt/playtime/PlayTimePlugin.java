@@ -4,9 +4,13 @@ import com.antoinejt.playtime.events.PlayerConnectionListener;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Logger;
+
 public class PlayTimePlugin extends JavaPlugin {
     private static FileConfiguration cfgFile;
     private static PlayerJoinData playerJoinData;
+    private static PlayTimeData playTimeData;
+    private static JavaPlugin instance;
 
     @Override
     @SuppressWarnings("java:S2696")
@@ -18,6 +22,7 @@ public class PlayTimePlugin extends JavaPlugin {
     public void onEnable() {
         cfgFile = getConfig();
         playerJoinData = new PlayerJoinData();
+        playTimeData = new PlayTimeData();
 
         this.getServer().getPluginManager().registerEvents(new PlayerConnectionListener(), this);
 
@@ -30,5 +35,13 @@ public class PlayTimePlugin extends JavaPlugin {
 
     public static PlayerJoinData getPlayerJoinData() {
         return playerJoinData;
+    }
+
+    public static PlayTimeData getPlayTimeData() {
+        return playTimeData;
+    }
+
+    public static Logger getConsoleLogger() {
+        return instance.getLogger();
     }
 }
