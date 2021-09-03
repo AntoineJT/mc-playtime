@@ -1,5 +1,5 @@
 name: Playtime
-main: com.antoinejt.survivalplugin.PlaytimePlugin
+main: com.antoinejt.playtime.PlayTimePlugin
 author: AntoineJT
 version: 0.0.0
 api-version: 1.16
