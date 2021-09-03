@@ -4,13 +4,13 @@ import com.google.gson.Gson;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class PlayTimeData {
     private final Map<UUID, Duration> data;
@@ -32,9 +32,12 @@ public class PlayTimeData {
         data.put(uuid, total);
     }
 
-    public void persistOnDisk() throws IOException {
-        Files.writeString(file.toPath(), new Gson().toJson(this), file.exists()
-                ? StandardOpenOption.WRITE
-                : StandardOpenOption.CREATE);
+    public void persistOnDisk() {
+        try (FileWriter fw = new FileWriter(file)) {
+            fw.write(new Gson().toJson(this));
+        } catch (IOException e) {
+            PlayTimePlugin.getConsoleLogger().log(Level.WARNING,
+                    "Can't persist playtime on disk! Error: " + e.getMessage());
+        }
     }
 }

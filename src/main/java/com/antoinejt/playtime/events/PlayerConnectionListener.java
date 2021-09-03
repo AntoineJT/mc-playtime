@@ -9,10 +9,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.util.Date;
-import java.util.logging.Level;
 
 public class PlayerConnectionListener implements Listener {
     @EventHandler
@@ -37,12 +35,6 @@ public class PlayerConnectionListener implements Listener {
 
         PlayTimeData data = PlayTimePlugin.getPlayTimeData();
         data.addPlayTime(event.getPlayer(), sessionDuration);
-
-        try {
-            data.persistOnDisk();
-        } catch (IOException e) {
-            PlayTimePlugin.getConsoleLogger().log(Level.WARNING,
-                    "Can't persist playtime on disk! Error: " + e.getMessage());
-        }
+        data.persistOnDisk();
     }
 }
