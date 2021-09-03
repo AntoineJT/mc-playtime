@@ -22,7 +22,7 @@ public class PlayTimePlugin extends JavaPlugin {
     public void onEnable() {
         cfgFile = getConfig();
         playerJoinData = new PlayerJoinData();
-        playTimeData = new PlayTimeData();
+        playTimeData = PlayTimeData.get();
 
         this.getServer().getPluginManager().registerEvents(new PlayerConnectionListener(), this);
 
