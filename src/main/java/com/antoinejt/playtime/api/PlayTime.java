@@ -5,7 +5,9 @@ import org.bukkit.entity.Player;
 
 import java.time.Duration;
 
+@SuppressWarnings("unused")
 public class PlayTime {
+    // we will see if that's useful in the future
     private final Player player;
 
     public PlayTime(Player player) {
@@ -13,6 +15,6 @@ public class PlayTime {
     }
 
     public Duration get() {
-        return PlayTimePlugin.getPlayTimeData().getPlayTime(player);
+        return PlayTimePlugin.getPlayTimeData().getPlayTime(player.getUniqueId());
     }
 }

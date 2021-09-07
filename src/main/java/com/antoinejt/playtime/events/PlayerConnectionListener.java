@@ -34,7 +34,7 @@ public class PlayerConnectionListener implements Listener {
         Duration sessionDuration = Duration.between(joinDate.toInstant(), disconnectDate.toInstant());
 
         PlayTimeData data = PlayTimePlugin.getPlayTimeData();
-        data.addPlayTime(event.getPlayer(), sessionDuration);
+        data.addPlayTime(event.getPlayer().getUniqueId(), sessionDuration);
         data.persistOnDisk();
     }
 }

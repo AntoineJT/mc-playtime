@@ -33,12 +33,11 @@ public class PlayTimeData {
         return new PlayTimeData();
     }
 
-    public Duration getPlayTime(Player player) {
-        return data.get(player.getUniqueId());
+    public Duration getPlayTime(UUID uuid) {
+        return data.get(uuid);
     }
 
-    public void addPlayTime(Player player, Duration duration) {
-        UUID uuid = player.getUniqueId();
+    public void addPlayTime(UUID uuid, Duration duration) {
         Duration total = data.containsKey(uuid)
                 ? data.get(uuid).plus(duration)
                 : duration;
